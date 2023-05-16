@@ -49,7 +49,7 @@ const posts = [
         "media": "https://unsplash.it/600/400?image=534",
         "author": {
             "name": "Alessandro Sainato",
-            "image": "https://unsplash.it/300/300?image=29"
+            "image": null
         },
         "likes": 95,
         "created": "2021-03-05"
@@ -90,12 +90,25 @@ posts.forEach(element => {
 
     // Creo l'elemento img per inserire l'immagine e gli aggiungo la classe profile-pic
 
-    const profilePic = document.createElement("img");
-    profilePic.classList.add("profile-pic");
-    profilePic.src = element.author.image;
+    // Controllo se l'utente ha una foto profilo in caso contrario ne assegno uan di default con le iniziali del nome e cognome
 
-    postMetaIcon.appendChild(profilePic);
+    if (element.author.image != null) {
 
+        const profilePic = document.createElement("img");
+        profilePic.classList.add("profile-pic");
+        profilePic.src = element.author.image;
+        postMetaIcon.appendChild(profilePic);
+
+    } else {
+        const profilePic = document.createElement("div");
+        profilePic.classList.add("profile-pic-default");
+        var user = element.author.name.split(" ");
+        userName = user[0];
+        userSurname = user[1];
+        profilePic.innerHTML = userName[0] + userSurname[0];
+        postMetaIcon.appendChild(profilePic); 
+    }
+    
     // Creo il div per nomee utente e data pubblicazione post e gli aggiungo la classe post-meta__data
 
     const postMetaData = document.createElement("div");
@@ -221,6 +234,11 @@ posts.forEach(element => {
             element.likes += 1;
             likeNuber.innerHTML = parseInt(likeNuber.innerHTML) + 1;
             postLiked.push(element.id);
+        } else {
+            likeButtonLabel.style.color = "black";
+            element.likes -= 1;
+            likeNuber.innerHTML = parseInt(likeNuber.innerHTML) - 1;
+            postLiked.pop(element.id);
         }
     
     })
