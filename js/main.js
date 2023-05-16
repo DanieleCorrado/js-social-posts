@@ -56,6 +56,8 @@ const posts = [
     }
 ];
 
+let postLiked = [];
+
 const container = document.getElementById("container");
 
 posts.forEach(element => {
@@ -206,7 +208,22 @@ posts.forEach(element => {
 
     likeCounter.appendChild(endSentence);
 
+    // Rimani in ascolto per un eventuale click sul pulsante mi piace
+
+    likesCta.addEventListener('click', function() {
+
+        // controlla se l'id del post a cui l'utente a messo mi piace non è presente nell'array postLiked e in caso affermativi cambia il colore del testo "mi piace" e incremente il contatore dei like
+
+        if(!postLiked.includes(element.id)) {
+
+            likeButtonLabel.style.color = "red";
+            element.likes += 1;
+            likeNuber.innerHTML = parseInt(likeNuber.innerHTML) + 1;
+            postLiked.push(element.id);
+        }
+    
+    })
+
     container.appendChild(post);
 
 });
-
