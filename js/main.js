@@ -114,7 +114,8 @@ posts.forEach(element => {
 
     const postMetaTime = document.createElement("div");
     postMetaTime.classList.add("post-meta__time");
-    postMetaTime.innerText= element.created;
+    let createdArray = element.created.split("-");
+    postMetaTime.innerText= createdArray[2] + "/"+ createdArray[1] + "/" + createdArray[0];
     postMetaData.appendChild(postMetaTime);
     
     // Creo il div per la desrizione del post e gli aggiungo la classe post__text
