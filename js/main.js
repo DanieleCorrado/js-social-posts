@@ -97,6 +97,7 @@ posts.forEach(element => {
         const profilePic = document.createElement("img");
         profilePic.classList.add("profile-pic");
         profilePic.src = element.author.image;
+        
         postMetaIcon.appendChild(profilePic);
 
     } else {
@@ -106,6 +107,7 @@ posts.forEach(element => {
         userName = user[0];
         userSurname = user[1];
         profilePic.innerHTML = userName[0] + userSurname[0];
+
         postMetaIcon.appendChild(profilePic); 
     }
     
@@ -121,14 +123,16 @@ posts.forEach(element => {
     const postMetaAuthor = document.createElement("div");
     postMetaAuthor.classList.add("post-meta__author");
     postMetaAuthor.innerText = element.author.name;
+
     postMetaData.appendChild(postMetaAuthor);
 
     // Creo il div per la data di pubblicazione e gli aggiungo la classe post-meta__time
 
     const postMetaTime = document.createElement("div");
     postMetaTime.classList.add("post-meta__time");
-    let createdArray = element.created.split("-");
-    postMetaTime.innerText= createdArray[2] + "/"+ createdArray[1] + "/" + createdArray[0];
+    let data = element.created.split("-");
+    postMetaTime.innerText= data[2] + "/"+ data[1] + "/" + data[0];
+
     postMetaData.appendChild(postMetaTime);
     
     // Creo il div per la desrizione del post e gli aggiungo la classe post__text
@@ -136,6 +140,7 @@ posts.forEach(element => {
     const postText = document.createElement("div");
     postText.classList.add("post__text");
     postText.innerHTML = element.content;
+
     post.appendChild(postText);
 
     // Creo il div per l'immagine del post e gli aggiungo la classe post__image
@@ -183,9 +188,7 @@ posts.forEach(element => {
     // Creo l'i per l'icona like del post e gli aggiungo le classi like-button__icon, fas fa-thumbs-up
 
     const likeButtonIcon = document.createElement("i");
-    likeButtonIcon.classList.add("like-button__icon");
-    likeButtonIcon.classList.add("fas");
-    likeButtonIcon.classList.add("fa-thumbs-up");
+    likeButtonIcon.classList.add("like-button__icon", "fa-thumbs-up", "fas");
 
     likeButton.appendChild(likeButtonIcon);
 
@@ -229,15 +232,14 @@ posts.forEach(element => {
         // controlla se l'id del post a cui l'utente a messo mi piace non è presente nell'array postLiked e in caso affermativi cambia il colore del testo "mi piace" e incremente il contatore dei like
 
         if(!postLiked.includes(element.id)) {
-
             likeButtonLabel.style.color = "red";
             element.likes += 1;
-            likeNuber.innerHTML = parseInt(likeNuber.innerHTML) + 1;
+            likeNuber.innerHTML = element.likes;
             postLiked.push(element.id);
         } else {
             likeButtonLabel.style.color = "black";
             element.likes -= 1;
-            likeNuber.innerHTML = parseInt(likeNuber.innerHTML) - 1;
+            likeNuber.innerHTML = element.likes;
             postLiked.pop(element.id);
         }
     
