@@ -232,12 +232,12 @@ posts.forEach(element => {
         // controlla se l'id del post a cui l'utente a messo mi piace non è presente nell'array postLiked e in caso affermativi cambia il colore del testo "mi piace" e incremente il contatore dei like
 
         if(!postLiked.includes(element.id)) {
-            likeButtonLabel.style.color = "red";
+            likeButtonLabel.classList.add("like-button--liked");
             element.likes += 1;
             likeNuber.innerHTML = element.likes;
             postLiked.push(element.id);
         } else {
-            likeButtonLabel.style.color = "black";
+            likeButtonLabel.classList.remove("like-button--liked");
             element.likes -= 1;
             likeNuber.innerHTML = element.likes;
             postLiked.pop(element.id);
